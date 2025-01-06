@@ -1,87 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
 </head>
-<body>
-    <script>
-        console.log("Hello world!")
 
+<body>
+    <h1>Rock, Paper, Scissors!</h1>
+
+
+    <div>
+        <p>You vs Computer</p>
+        <p><span id="humanscore">0</span> - <span id="computerscore">0</span></p>
+    </div>
+
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <script>
+        let humanScoreValue = 0, computerScoreValue = 0;
+        const rockBtn = document.querySelector("#rock");
+        const paperBtn = document.querySelector("#paper");
+        const scissorsBtn = document.querySelector("#scissors");
+        const humanScore = document.querySelector("#humanscore");
+        const computerScore = document.querySelector("#computerscore");
+
+        rockBtn.addEventListener("click", () => playRound("rock", getComputerChoice));
+        paperBtn.addEventListener("click", () => playRound("paper", getComputerChoice));
+        scissorsBtn.addEventListener("click", () => playRound("scissors", getComputerChoice));
+
+        console.log("Hello world!")
 
         // The following function creates a computer choice between rock paper or scissor and assigns it to computerChoice.
         function getComputerChoice() {
             let computerChoice = Math.floor(Math.random() * 3); //Assign a number from 0 1 and 2
             //Change numbers to r p s values
             switch (computerChoice) {
-                case 0 : computerChoice = "rock";
+                case 0: computerChoice = "rock";
                     break;
-                case 1 : computerChoice = "paper";
+                case 1: computerChoice = "paper";
                     break;
-                case 2 : computerChoice = "scissors";
+                case 2: computerChoice = "scissors";
                     break;
             }
             console.log(`The computer chose ${computerChoice}.`);
             return computerChoice;
         }
 
-        function getHumanChoice() {
-            let humanChoice = prompt(`Choose your fighter! Rock, paper, or scissors? Type in your choice.`); //prompts the user to input rock, paper or scissors.
-            humanChoice = humanChoice.toLowerCase();
-            
-            if (humanChoice === "rock") {
-                console.log(`You chose ${humanChoice}.`)
-                return humanChoice;
-            }
-            else if (humanChoice === "paper") {
-                console.log(`You chose ${humanChoice}.`)
-                return humanChoice;
-            }
-            else if (humanChoice === "scissors") {
-                console.log(`You chose ${humanChoice}.`)
-                return humanChoice;
-            }
-            else {
-                alert("Input invalid. Please check for typos and try again.");
-                return getHumanChoice();
-            } 
-        }
+        // function getHumanChoice() {
+        //     let humanChoice = prompt(`Choose your fighter! Rock, paper, or scissors? Type in your choice.`); //prompts the user to input rock, paper or scissors.
+        //     humanChoice = humanChoice.toLowerCase();
+
+        //     if (humanChoice === "rock") {
+        //         console.log(`You chose ${humanChoice}.`)
+        //         return humanChoice;
+        //     }
+        //     else if (humanChoice === "paper") {
+        //         console.log(`You chose ${humanChoice}.`)
+        //         return humanChoice;
+        //     }
+        //     else if (humanChoice === "scissors") {
+        //         console.log(`You chose ${humanChoice}.`)
+        //         return humanChoice;
+        //     }
+        //     else {
+        //         alert("Input invalid. Please check for typos and try again.");
+        //         return getHumanChoice();
+        //     }
+        // }
 
         function playRound(humanChoice, computerChoice) {
 
-            humanChoice = getHumanChoice();
             computerChoice = getComputerChoice();
 
             if (humanChoice === computerChoice) {
-                alert(`The computer chose ${computerChoice}. It's a tie! Your score vs. computer: ${humanScore} - ${computerScore}`);
+                alert(`The computer chose ${computerChoice}. It's a tie!`);
+                // Your score vs. computer: ${humanScore} - ${computerScore}`);
             } else if (humanChoice === 'rock' && computerChoice === 'paper' || humanChoice === 'paper' && computerChoice === 'scissors' || humanChoice === 'scissors' && computerChoice === 'rock') {
-                computerScore++;
-                alert(`The computer chose ${computerChoice}. You lose! Your score vs. computer: ${humanScore} - ${computerScore}`);
+                computerScoreValue++;
+                alert(`The computer chose ${computerChoice}.`)
+                // You lose! Your score vs. computer: ${humanScore} - ${computerScore}`);
             } else {
-                humanScore++;
-                alert(`The computer chose ${computerChoice}. You win! Your score vs. computer: ${humanScore} - ${computerScore}`);
+                humanScoreValue++;
+                alert(`The computer chose ${computerChoice}.`)
+                // You win! Your score vs. computer: ${humanScore} - ${computerScore}`);
             }
-            console.log(`Your score vs. computer: ${humanScore} - ${computerScore}`);
+            computerScore.textContent = `${computerScoreValue}`;
+            humanScore.textContent = `${humanScoreValue}`;
         }
-            
 
-        let humanScore = 0, computerScore = 0;
+
+
         console.log(`Your score vs. computer: ${humanScore} - ${computerScore}`);
-        
-        playRound()
-        playRound()
-        playRound()
-        playRound()
-        playRound()
 
-        if (computerScore > humanScore) {
-            alert("The computer beat you. Sorry!")
-        } else if (humanScore > computerScore) {
-            alert("You beat the computer. Congrats!")
-        } else {
-            alert("There iz no winnah!")
-        }
+        // if (computerScore > humanScore) {
+        //     alert("The computer beat you. Sorry!")
+        // } else if (humanScore > computerScore) {
+        //     alert("You beat the computer. Congrats!")
+        // } else {
+        //     alert("There iz no winnah!")
+        // }
     </script>
 </body>
+
 </html>
