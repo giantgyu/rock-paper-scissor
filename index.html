@@ -46,7 +46,6 @@
                 case 2: computerChoice = "scissors";
                     break;
             }
-            console.log(`The computer chose ${computerChoice}.`);
             return computerChoice;
         }
 
@@ -88,13 +87,26 @@
                 alert(`The computer chose ${computerChoice}.`)
                 // You win! Your score vs. computer: ${humanScore} - ${computerScore}`);
             }
-            computerScore.textContent = `${computerScoreValue}`;
-            humanScore.textContent = `${humanScoreValue}`;
+
+            computerScore.textContent = computerScoreValue;
+            humanScore.textContent = humanScoreValue;
+
+            if (computerScore.textContent == 5 || humanScore.textContent == 5) {
+                const message = computerScore == 5
+                    ? `Game over! You lose! You're such a loser you lost to a computer :P`
+                    : `Congratulations! You win! Now piss off.`;
+                alert(message);
+
+                // Reset scores
+                computerScoreValue = 0;
+                humanScoreValue = 0;
+
+                // Update displayed scores
+                computerScore.textContent = computerScoreValue;
+                humanScore.textContent = humanScoreValue;
+            }
+
         }
-
-
-
-        console.log(`Your score vs. computer: ${humanScore} - ${computerScore}`);
 
         // if (computerScore > humanScore) {
         //     alert("The computer beat you. Sorry!")
