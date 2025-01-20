@@ -5,32 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>Rock, Paper, Scissors!</h1>
 
 
-    <div>
+    <div class="scoreboard">
         <p>You vs Computer</p>
         <p><span id="humanscore">0</span> - <span id="computerscore">0</span></p>
     </div>
 
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
 
+
+    <!-- Add Text here via DOM -->
+    <div id="gesturebox">
+        <div id="computerbox">
+
+        </div>
+        <div id="humanbox">
+
+        </div>
+    </div>
+
+    <div id="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
     <script>
+        const computerbox = document.querySelector("#computerbox");
+        const humanbox = document.querySelector("#humanbox");
+
         let humanScoreValue = 0, computerScoreValue = 0;
-        const rockBtn = document.querySelector("#rock");
-        const paperBtn = document.querySelector("#paper");
-        const scissorsBtn = document.querySelector("#scissors");
         const humanScore = document.querySelector("#humanscore");
         const computerScore = document.querySelector("#computerscore");
 
-        rockBtn.addEventListener("click", () => playRound("rock", getComputerChoice));
-        paperBtn.addEventListener("click", () => playRound("paper", getComputerChoice));
-        scissorsBtn.addEventListener("click", () => playRound("scissors", getComputerChoice));
+        document.querySelector("#rock").addEventListener("click", () => playRound("rock", getComputerChoice));
+        document.querySelector("#paper").addEventListener("click", () => playRound("paper", getComputerChoice));
+        document.querySelector("#scissors").addEventListener("click", () => playRound("scissors", getComputerChoice));
+
+
 
         console.log("Hello world!")
 
@@ -91,22 +107,52 @@
             computerScore.textContent = computerScoreValue;
             humanScore.textContent = humanScoreValue;
 
-            if (computerScore.textContent == 5 || humanScore.textContent == 5) {
-                const message = computerScore == 5
+            // Check if score is 5, then end the game
+            if (computerScoreValue == 5 || humanScoreValue == 5) {
+                const message = computerScoreValue == 5
                     ? `Game over! You lose! You're such a loser you lost to a computer :P`
                     : `Congratulations! You win! Now piss off.`;
-                alert(message);
+                const announcementBox = document.createElement("div");
+                announcementBox.textContent = message;
+
+                document.querySelector(".scoreboard").appendChild(announcementBox);
+                document.querySelector("#choices").innerHTML = "";
+
+                const newGameButton = document.createElement("button");
+                newGameButton.textContent = "New Game";
+
+                document.body.appendChild(newGameButton);
+
+                newGameButton.addEventListener("click", () => {
+                    document.querySelector("#choices").innerHTML = `
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    `; newGameButton.remove(); announcementBox.remove(); resetScores(); updateDisplayedScores(); reattachEventListeners();
+                });
 
                 // Reset scores
-                computerScoreValue = 0;
-                humanScoreValue = 0;
+                function resetScores() {
+                    computerScoreValue = 0;
+                    humanScoreValue = 0;
+                }
 
                 // Update displayed scores
-                computerScore.textContent = computerScoreValue;
-                humanScore.textContent = humanScoreValue;
+                function updateDisplayedScores() {
+                    computerScore.textContent = computerScoreValue;
+                    humanScore.textContent = humanScoreValue;
+                }
+
+                function reattachEventListeners() {
+                    document.querySelector("#rock").addEventListener("click", () => playRound("rock", getComputerChoice));
+                    document.querySelector("#paper").addEventListener("click", () => playRound("paper", getComputerChoice));
+                    document.querySelector("#scissors").addEventListener("click", () => playRound("scissors", getComputerChoice));
+                }
             }
 
         }
+
+
 
         // if (computerScore > humanScore) {
         //     alert("The computer beat you. Sorry!")
